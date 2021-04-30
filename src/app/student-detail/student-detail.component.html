@@ -1,0 +1,96 @@
+<p>student-detail works!</p>
+
+<div class="main">
+<div class="box1">
+
+<form [formGroup]="this.studentService.form">
+<table border="2">
+<tr>
+<td>Student Name  </td>
+<td>
+ <input
+    placeholder="Student Name"
+    type="text"
+    class="input-field col s12"
+    formControlName="name"
+  />
+</td>
+  </tr>
+
+
+<tr>
+<td>Student age  </td>
+<td>
+  <input
+    placeholder="Student age"
+    type="text"
+    class="input-field col s12"
+    formControlName="age"
+  />
+  </td>
+  </tr>
+
+<tr>
+<td>Student Address  </td>
+<td>
+  <input
+    placeholder="Student address"
+    type="text"
+    class="input-field col s12"
+    formControlName="address"
+  />
+
+  </td>
+  </tr>
+
+<tr>
+<td colspan="2"> 
+
+  <button style="margin:auto;display:block" (click)="onSubmit()">
+    Submit
+  </button>
+  </td>
+  </tr>
+  </table>
+  </form>
+  </div>
+
+  <div class="box2">
+  <table border="2">
+  <thead>
+    <tr>
+      <th>Student Name</th>
+      <th>Age</th>
+      <th>Address</th>
+      <th>update</th>
+      <th>delete</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let list of stud">
+      <td>
+        {{ list.payload.doc.data().name }}
+      </td>
+      <td>{{ list.payload.doc.data().age }}</td>
+      <td>
+        {{ list.payload.doc.data().address }}
+      </td>
+      <td >
+      <button (click)="updatedata(list.payload.doc.data())" >
+       update
+       </button>
+      </td>
+      <td>
+      <button (click)="deletestudent(list)">
+        delete</button>
+      </td>
+      
+    </tr>
+  </tbody>
+
+
+  </table>
+  </div>
+  </div>
+

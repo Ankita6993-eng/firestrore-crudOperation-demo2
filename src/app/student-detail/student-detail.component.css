@@ -1,0 +1,22 @@
+
+.main
+{
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+   height:280px;
+   width:1000px;
+}
+.box1
+{
+    width: 300px;
+    height: 280px;
+    margin:10px;
+    padding-left:-90px;
+    
+}
+.box2{
+    margin-right:50px;
+    margin-top:10px;
+    width: 570px;
+    height: 150px;
+}
