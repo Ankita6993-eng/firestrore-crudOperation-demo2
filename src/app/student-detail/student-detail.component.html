@@ -3,7 +3,7 @@
 <div class="main">
 <div class="box1">
 
-<form [formGroup]="this.studentService.form">
+<form [formGroup]="this.studentService.form" >
   <input type="hidden" formControlName="$key">
 <table border="2">
 <tr>
@@ -46,11 +46,11 @@
 
 <tr>
 <td> 
-  <button  style="margin:auto;display:block" value="Submit" (click)="onSubmit()"> Submit</button>
+  <button  style="margin:auto;display:block" value="Submit" (click)="createstud()" [disabled]="issubmit==true"  > Submit</button>
   </td>
 
   <td> 
-  <button style="margin:auto;display:block" value="Update" (click)="updaterecorde()" >Update</button> 
+  <button style="margin:auto;display:block" value="Update" (click)="updaterecorde()" [disabled]="issubmit==false">Update</button> 
   </td>
   </tr>
   </table>
@@ -80,7 +80,7 @@
         {{ list.address }}
       </td>
       <td >
-      <button (click)="studentService.populateForm(list)">
+      <button (click)="populateForm1(list)" [ngClass]="{'active': isedit === true}">
        update  
        </button>
       </td>
