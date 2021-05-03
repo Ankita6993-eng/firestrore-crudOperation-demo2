@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {StudentService} from '../student.service'
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { map } from 'rxjs/operators';
+
+
 @Component({
   selector: 'app-student-detail',
   templateUrl: './student-detail.component.html',
@@ -11,20 +14,23 @@ export class StudentDetailComponent implements OnInit {
   constructor(public studentService: StudentService,public firestore: AngularFirestore) { }
 students:any=[];
 stud:any;
-id:any
   ngOnInit(): void {
-    this.getstudent();
+   this.studentService.getstudents().subscribe((list:any)=>{
+     this.students=list.map((item:any)=>{
+       return {
+         $key:item.key,
+         ...item.payload.val()
+       }
+     })
+   })
   }
 
   addstudents(data:any){ this.students.push(data)};
 
   onSubmit() {
-    this.studentService.form.value.students = this.students;
-    let data = this.studentService.form.value;
-    alert("Recored inserted...")
-    this.studentService.createstudent(data).then((res:any) => {
-     
-    });
+      this.studentService.createstudent(this.studentService.form.value)
+      alert("Recored inserted...") 
+      this.studentService.form.reset()
   }
 
 
@@ -35,24 +41,16 @@ id:any
       .subscribe(res => (this.stud = res));
   }   
 
-  deletestudent(data:any) {this.studentService.deletestudents(data);}
-
-  updatedata(student:any){
-     this.studentService.form.patchValue({
-    name:student.name,
-    age:student.age,
-    address:student.address, 
-  //  id: this.firestore.collection('students').snapshotChanges().forEach((changes:any)=>{
-  //    changes.map((a:any)=>{
-  //      this.id=a.payload.doc.id
-  //      console.log(this.id)
-  //    })
-  //  }) 
-  })
-
-  this.id=this.studentService.getstudid(student.id).subscribe((data:any)=>{console.log(data.id)})
-  console.log(this.id)
-  
+  deletestudent(data:any) {
+    if(confirm("Are you sure to delete this recored")){
+      this.studentService.deletestudents(data)
+    }
+    //this.studentService.deletestudents(data);
+    }
+  updaterecorde(){
+     this.studentService.updatestudent(this.studentService.form.value)
+      alert("Recored Updated...") 
+      this.studentService.form.reset()
   }
 
 }

@@ -4,6 +4,7 @@
 <div class="box1">
 
 <form [formGroup]="this.studentService.form">
+  <input type="hidden" formControlName="$key">
 <table border="2">
 <tr>
 <td>Student Name  </td>
@@ -44,11 +45,12 @@
   </tr>
 
 <tr>
-<td colspan="2"> 
+<td> 
+  <button  style="margin:auto;display:block" value="Submit" (click)="onSubmit()"> Submit</button>
+  </td>
 
-  <button style="margin:auto;display:block" (click)="onSubmit()">
-    Submit
-  </button>
+  <td> 
+  <button style="margin:auto;display:block" value="Update" (click)="updaterecorde()" >Update</button> 
   </td>
   </tr>
   </table>
@@ -68,28 +70,28 @@
   </thead>
 
   <tbody>
-    <tr *ngFor="let list of stud">
+  <ng-container *ngFor="let list of students">
+    <tr>
       <td>
-        {{ list.payload.doc.data().name }}
+        {{ list.name }}
       </td>
-      <td>{{ list.payload.doc.data().age }}</td>
+      <td>{{ list.age }}</td>
       <td>
-        {{ list.payload.doc.data().address }}
+        {{ list.address }}
       </td>
       <td >
-      <button (click)="updatedata(list.payload.doc.data())" >
-       update
+      <button (click)="studentService.populateForm(list)">
+       update  
        </button>
       </td>
       <td>
-      <button (click)="deletestudent(list)">
+      <button (click)="deletestudent(list.$key)">
         delete</button>
       </td>
       
     </tr>
-  </tbody>
-
-
+</ng-container>
+ </tbody>
   </table>
   </div>
   </div>

@@ -8,7 +8,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule }    from '@angular/forms';
 import { StudentDetailComponent } from './student-detail/student-detail.component';
-
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import {StudentService} from './student.service'; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,9 +21,10 @@ import { StudentDetailComponent } from './student-detail/student-detail.componen
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    AngularFireDatabaseModule
   ],
-  providers: [],
+  providers: [StudentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
